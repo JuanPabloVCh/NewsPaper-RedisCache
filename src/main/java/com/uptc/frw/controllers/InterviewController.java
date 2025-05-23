@@ -20,7 +20,7 @@ public class InterviewController {
         this.interviewService = interviewService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<List<Interview>> getAllInterviews() {
         return ResponseEntity.ok(interviewService.getAllInterviews());
     }

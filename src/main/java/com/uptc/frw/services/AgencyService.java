@@ -3,6 +3,7 @@ package com.uptc.frw.services;
 import com.uptc.frw.models.Agency;
 import com.uptc.frw.repositories.AgencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class AgencyService {
     public AgencyService(AgencyRepository agencyRepository) {
         this.agencyRepository = agencyRepository;
     }
-
+    @Cacheable("agencies")
     public List<Agency> getAllAgencies() {
         return agencyRepository.findAll();
     }
-
+    @Cacheable(value = "agencies", key = "#id")
     public Agency getAgencyById(Long id) {
         return agencyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agency not found"));

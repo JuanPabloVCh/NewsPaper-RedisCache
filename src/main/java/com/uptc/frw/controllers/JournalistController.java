@@ -20,7 +20,7 @@ public class JournalistController {
         this.journalistService = journalistService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<List<Journalist>> getAllJournalists() {
         return ResponseEntity.ok(journalistService.getAllJournalists());
     }

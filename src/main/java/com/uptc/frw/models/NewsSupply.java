@@ -1,13 +1,22 @@
 package com.uptc.frw.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uptc.frw.models.key.NewsSupplyId;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "NEWS_SUPPLY")
-public class NewsSupply {
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class NewsSupply implements Serializable {
 
     @EmbeddedId
     private NewsSupplyId id;

@@ -20,7 +20,7 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<List<Report>> getAllReports() {
         return ResponseEntity.ok(reportService.getAllReports());
     }

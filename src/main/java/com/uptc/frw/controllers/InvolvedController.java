@@ -20,7 +20,7 @@ public class InvolvedController {
         this.involvedService = involvedService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<List<Involved>> getAllInvolveds() {
         return ResponseEntity.ok(involvedService.getAllInvolved());
     }

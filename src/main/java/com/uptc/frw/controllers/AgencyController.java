@@ -20,7 +20,7 @@ public class AgencyController {
         this.agencyService = agencyService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<List<Agency>> getAllAgencies() {
         return ResponseEntity.ok(agencyService.getAllAgencies());
     }

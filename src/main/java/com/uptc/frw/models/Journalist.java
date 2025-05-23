@@ -1,21 +1,32 @@
 package com.uptc.frw.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "JOURNALIST")
-public class Journalist {
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Journalist implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJournalist;
-
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "ADDRESS")
     private String address;
+    @Column(name = "EMAIL")
     private String email;
-
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
@@ -25,6 +36,7 @@ public class Journalist {
             joinColumns = @JoinColumn(name = "ID_JOURNALIST"),
             inverseJoinColumns = @JoinColumn(name = "ID_REPORT")
     )
+    @JsonIgnore
     private List<Report> coveredReports = new ArrayList<Report>();
 
     public Journalist() {

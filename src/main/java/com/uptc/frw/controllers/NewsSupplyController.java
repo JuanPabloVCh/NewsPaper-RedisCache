@@ -20,7 +20,7 @@ public class NewsSupplyController {
         this.newsSupplyService = newsSupplyService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<List<NewsSupply>> getAllNewsSupplies() {
         return ResponseEntity.ok(newsSupplyService.getAllNewsSupplies());
     }

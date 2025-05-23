@@ -3,6 +3,7 @@ package com.uptc.frw.services;
 import com.uptc.frw.models.Report;
 import com.uptc.frw.repositories.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class ReportService {
     public ReportService(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
-
+    @Cacheable("report")
     public List<Report> getAllReports() {
         return reportRepository.findAll();
     }
-
+    @Cacheable(value = "report", key = "#id")
     public Report getReportById(Long id) {
         return reportRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Report not found"));

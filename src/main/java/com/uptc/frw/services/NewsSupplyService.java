@@ -4,6 +4,7 @@ import com.uptc.frw.models.NewsSupply;
 import com.uptc.frw.models.key.NewsSupplyId;
 import com.uptc.frw.repositories.NewsSupplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class NewsSupplyService {
     public NewsSupplyService(NewsSupplyRepository newsSupplyRepository) {
         this.newsSupplyRepository = newsSupplyRepository;
     }
-
+    @Cacheable("getAllNewsSupplies")
     public List<NewsSupply> getAllNewsSupplies() {
         return newsSupplyRepository.findAll();
     }

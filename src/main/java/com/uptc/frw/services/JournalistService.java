@@ -3,6 +3,7 @@ package com.uptc.frw.services;
 import com.uptc.frw.models.Journalist;
 import com.uptc.frw.repositories.JournalistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,16 @@ public class JournalistService {
     public JournalistService(JournalistRepository journalistRepository) {
         this.journalistRepository = journalistRepository;
     }
-
+    @Cacheable(value = "journalists")
     public List<Journalist> getAllJournalists() {
-        return journalistRepository.findAll();
-    }
+        List<Journalist> lista = journalistRepository.findAll();
 
+        System.out.println(lista.size());
+        return journalistRepository.findAll();
+
+
+    }
+    @Cacheable(value = "journalists", key = "#id")
     public Journalist getJournalistById(Long id) {
         return journalistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Journalist not found"));
